@@ -31,6 +31,6 @@ public class CardDto {
 		return suit + value +" ";
 	}
 	
-	
+	// 으아아아
 
 }
