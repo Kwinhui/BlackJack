@@ -6,100 +6,73 @@ import java.util.List;
 import com.callor.blackjack.model.CardDto;
 
 public class CardService {
-	String suit = "♣,◆,♠,♥";
-	String value = "A,2,3,4,5,6,7,8,9,10,K,Q,J";
-	private CardDto card = null;
-	private List<CardDto> cards = null;
+    String suit = "♣,◆,♠,♥";
+    String value = "A,2,3,4,5,6,7,8,9,10,K,Q,J";
+    private List<CardDto> cards;
+    private List<CardDto> pubDeckList;
 
-	public CardService() {
-		card = new CardDto();
-		cards = new ArrayList<CardDto>();
-	}
+    public CardService() {
+        cards = new ArrayList<CardDto>();
+        pubDeckList = new ArrayList<CardDto>();
+    }
 
-	public List<CardDto> getDeck() {
-		return this.cards;
-	}
+    public List<CardDto> getDeck() {
+        return this.cards;
+    }
+    
+    private int calculateSum(List<CardDto> deckList) {
+        int sumValue = 0;
+        for (CardDto dto : deckList) {
+            sumValue += dto.getValue();
+        }
+        return sumValue;
+    }
 
-	public void makeDeck() {
+    public void makeDeck() {
+        String[] suits = suit.split(",");
+        String[] values = value.split(",");
 
-		String[] suits = suit.split(",");
-		String[] values = value.split(",");
+        for (String suit : suits) {
+            for (String value : values) {
+                CardDto card = new CardDto();
+                card.setSuit(suit);
+                card.setDenomination(value);
 
-		for (String suit : suits) {
-			int intValue = 0;
-			for (String value : values) {
-				try {
-					intValue = Integer.valueOf(value);
-
-				} catch (Exception e) {
-					if (value.equals("A")) {
-
-						intValue = 1;
-					} else
-						intValue = 10;
-
-				}
-//				System.out.println(intValue + suit);
-
-//				Collections.shuffle(cards);
-//				System.out.println(intValue);
-//				System.out.println(cards);
+                this.cards.add(card);
+            }
+        }
+    }
 
 
-				CardDto card = new CardDto();
-				card.setSuit(suit);
-				card.setValue(intValue);
-				card.setDenomination(value);
-				cards.add(card);
-				cards.size();
-			}
+    public CardDto getRandomCard() {
+        int size = cards.size();
+        int select = (int) (Math.random() * size);
 
-		} // end for
+        CardDto selectedCard = cards.get(select);
+        cards.remove(select);
 
-	} // end makeDeck
+        return selectedCard;
+    }
 
-	public CardDto getRandomCard() {
-		// 카드 뽑기
-		int size = cards.size();
-		int select = (int) (Math.random() * size);
+    public void hit(List<CardDto> myDeckList, List<CardDto> pubDeckList, String playName) {
+        if (pubDeckList.isEmpty()) {
+            System.out.println("덱에 카드가 없습니다. 카드를 추가하세요.");
+            return;
+        }
 
-		return cards.get(select);
-	}
+        // 받은 카드를 내 카드 리스트에 추가
+        myDeckList.add(pubDeckList.get(0));
+        // 받을 카드에서 1장을 제외
+        pubDeckList.remove(0);
+        
+        int sumValue = calculateSum(myDeckList); // 카드 합 구하기
 
-	public CardDto draw() {
-		// 카드 제거
-		CardDto selectedCard = getRandomCard();
-		cards.remove(selectedCard); // 뽑은 카드 제거
-		return selectedCard;
-	}
-	
-	// 딜러 카드의 합이 16 이하이면 1장 추가
-	public void playingPhase() {
-		List<CardDto> deckList = new ArrayList<CardDto>();
-		String[] suits = suit.split(",");
-		String[] values = value.split(",");
-		CardDto cards = new CardDto();
-		makeDeck();
-		String str = value;
-		
-		int num = 0;
-		try {
-			num = Integer.valueOf(str);
-		} catch (Exception e) {
-			
-		}
-		if(num > 16) {
-			getRandomCard();
-		}
-		
-		
-	}
-	
-	
+        System.out.println("-".repeat(50));
+        System.out.println("현재점수 : " + sumValue);
 
-//	public CardDto getCard() {
-//		return null;
-//	}
-
+        // 21을 초과하는지 체크하여 bust 여부 판단
+        if (sumValue > 21) {
+            System.out.println(playName + " Bust!");
+        }
+    }
 }
-// end class
