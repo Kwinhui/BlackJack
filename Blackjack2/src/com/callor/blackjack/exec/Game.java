@@ -21,10 +21,22 @@ public class Game {
 		game.start(); // 게임 시작
 		int dealerSum = game.calculateSum(game.getDealerDeck());
 		int playerSum = game.calculateSum(game.getPlayerDeck());
+		game.showPlayerDeck();
 		// 딜러에게 카드 나눠주기
-		cardService.hit(game.getDealerDeck(), pubDeckList, "딜러");
+//		cardService.hit(game.getDealerDeck(), pubDeckList, "딜러");
 		game.showDealerDeck(); // 딜러 카드 보여주기
+		game.hit(myDeckList, pubDeckList, "플레이어");
 		game.hit(myDeckList, pubDeckList, "딜러");
+//		while(true) {
+//		if (dealerSum < 17) {
+//			System.out.println("딜러가 카드 1장을 더 받았습니다.");
+//			cardService.hit(game.getDealerDeck(), pubDeckList, "딜러");
+//			game.showDealerDeck(); // 딜러 카드 보여주기
+//		}
+//			
+//		break;
+//		}
+//		game.hit(myDeckList, pubDeckList, "딜러");
 //		if (dealerSum < 17 ) {
 //			cardService.hit(game.getDealerDeck(), pubDeckList, "딜러");
 //			game.showDealerDeck(); // 딜러 카드 보여주기

@@ -27,7 +27,7 @@ public class CardDto {
             return 10;
         } else {
             try {
-                return Integer.parseInt(denomination);
+                return Integer.valueOf(denomination);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
