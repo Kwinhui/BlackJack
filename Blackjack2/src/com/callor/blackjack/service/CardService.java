@@ -44,14 +44,12 @@ public class CardService {
 		int select = (int) (Math.random() * size);
 
 		CardDto selectedCard = cards.get(select);
-
+		
 		cards.remove(select); // 뽑은카드 cards 리스트에서 제거
-		String str = cards.toString();
+		
 
-		int count = 0;
-		for (int i = 0; i < cards.size(); i++) {
-			count++;
-		}
+		
+		
 
 		return selectedCard;
 	}

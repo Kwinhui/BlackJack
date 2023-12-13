@@ -60,7 +60,7 @@ public class GameService {
 
 		this.playerDeckList = new ArrayList<>();
 		this.dealerDeckList = new ArrayList<>();
-		cards = new ArrayList<CardDto>();
+		
 
 		int count = 2;
 
