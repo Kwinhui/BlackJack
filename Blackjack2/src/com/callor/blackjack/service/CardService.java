@@ -49,6 +49,7 @@ public class CardService {
 
 		CardDto selectedCard = cards.get(select);
 		
+		
 		cards.remove(select); // 뽑은카드 cards 리스트에서 제거
 
 		return selectedCard;

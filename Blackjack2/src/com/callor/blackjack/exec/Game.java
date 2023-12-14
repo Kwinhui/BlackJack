@@ -20,7 +20,7 @@ public class Game {
 		int dealerSum = game.calculateSum(game.getDealerDeck());
 		int playerSum = game.calculateSum(game.getPlayerDeck());
 		
-		System.out.println(pubDeckList);
+		
 		game.start(); // 게임 시작
 		game.showPlayerDeck();
 		game.showDealerDeck();
