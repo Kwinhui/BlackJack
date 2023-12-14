@@ -8,9 +8,9 @@ import com.callor.blackjack.utils.Line;
 
 
 public class CardService {
-	String suit = "♣,◆,♠,♥";
-	String value = "A,2,3,4,5,6,7,8,9,10,K,Q,J";
 	private List<CardDto> cards;
+	private String suit = "♣,◆,♠,♥";
+	private String value = "A,2,3,4,5,6,7,8,9,10,K,Q,J";
 
 	public CardService() {
 		cards = new ArrayList<CardDto>();
@@ -38,18 +38,18 @@ public class CardService {
 
 	}
 
+	// getRandomCard() method 실행시 
+	// 52장의 덱 리스트중 랜덤카드 1장씩 출력후
+	// 뽑은 카드를 바로 리스트카드 에서 제거
 	public CardDto getRandomCard() {
 		int size = cards.size();
+
 
 		int select = (int) (Math.random() * size);
 
 		CardDto selectedCard = cards.get(select);
 		
 		cards.remove(select); // 뽑은카드 cards 리스트에서 제거
-		
-
-		
-		
 
 		return selectedCard;
 	}

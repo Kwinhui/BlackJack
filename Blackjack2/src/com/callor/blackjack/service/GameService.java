@@ -27,46 +27,45 @@ public class GameService {
 
 	}
 
+	// 플레이어가 받은 카드 저장
 	public List<CardDto> getPlayerDeck() {
 
 		return this.playerDeckList;
 	}
 
+	// 딜러가 받은 카드 저장
 	public List<CardDto> getDealerDeck() {
 		return this.dealerDeckList;
 	}
 
+	// 플레이어와 딜러의 덱리스트에서 각각 정수의 합을 계산
 	public int calculateSum(List<CardDto> deckList) {
-		
+
 		int sumValue = 0;
 
+		// 플레이어와 딜러의 덱리스트에서 A일경우 1
 		for (CardDto dto : deckList) {
+			// CardDto의 getValue method에 적혀있는 A일땐 1,
+			// K,Q,J 일땐 정수 10으로 리턴한 값을 cardValue에 저장
 			int cardValue = dto.getValue();
 
-			if (cardValue == 1) { // A 카드인 경우
+			sumValue += cardValue;
 
-				sumValue += 1;
-
-			}
-
-			else {
-				sumValue += cardValue;
-			}
 		}
 		return sumValue;
 	}
 
 	public void start() {
-
+		
+		// 플레이어와 딜러의 새로운 리스트 생성
 		this.playerDeckList = new ArrayList<>();
 		this.dealerDeckList = new ArrayList<>();
-		
-
+		// 2장씩 받아야함
 		int count = 2;
 
 		for (int i = 0; i < count; i++) {
 			CardDto playerCard = this.cardService.getRandomCard();
-
+			// List<CardDto> playerDeckList 에 playerCard 2장을 추가
 			this.playerDeckList.add(playerCard);
 			cards.add(playerCard);
 
@@ -76,7 +75,7 @@ public class GameService {
 			CardDto dealerCard = this.cardService.getRandomCard();
 
 			cards.remove(dealerCard);
-
+			// List<CardDto> DealerDeckList 에 dealerCard 2장을 추가
 			this.dealerDeckList.add(dealerCard);
 
 			cards.add(dealerCard);
@@ -84,11 +83,13 @@ public class GameService {
 		}
 
 	}
-
+	// 플레이어 덱을 보여줌
 	public void showPlayerDeck() {
+		// 플레이어가 받은 덱리스트에서 합을 계산후 sumValue에 저장
 		int sumValue = calculateSum(getPlayerDeck());
 		System.out.print("플레이어의 카드 : ");
-
+		// game() method 에서 2장씩 받은 덱리스트를
+		// 한장씩 꺼내서 playerCard 출력
 		for (CardDto playerCard : this.playerDeckList) {
 			System.out.print(playerCard + " ");
 		}
@@ -96,10 +97,13 @@ public class GameService {
 		System.out.println("플레이어 합 : " + sumValue);
 
 	}
-
+	// 딜러 덱을 보여줌
 	public void showDealerDeck() {
+		// 딜러가 받은 덱리스트에서 합을 계산후 sumValue에 저장
 		int sumValue = calculateSum(getDealerDeck());
 		System.out.print("딜러의 카드 : ");
+		// game() method 에서 2장씩 받은 덱리스트를
+		// 한장씩 꺼내서 dealerCard 출력
 		for (CardDto dealerCard : this.dealerDeckList) {
 			System.out.print(dealerCard + " ");
 		}
@@ -109,11 +113,14 @@ public class GameService {
 
 	}
 
-	public void playerHit(List<CardDto> pubDeckList, String player) {
-		int sumValue = calculateSum(playerDeckList);
-		int sumValue2 = calculateSum(dealerDeckList);
+	
+	
+	public void playerHit(String player) {
+		
+		int sumValue = calculateSum(playerDeckList);		// 플레이어 카드 합
+		int sumValue2 = calculateSum(dealerDeckList);		// 딜러 카드 합
 		while (true) {
-			if (sumValue2 > 21)
+			if (sumValue2 > 21)		// 플레이어 합이 21이 넘으면 종료
 				return;
 			System.out.print("카드를 더 받으시겠습니까? (hit/stay) >> ");
 			String str = scan.nextLine();
@@ -176,7 +183,7 @@ public class GameService {
 
 	}
 
-	public void dealerHit(List<CardDto> pubDeckList, String dealer) {
+	public void dealerHit(String dealer) {
 		int sumValue = calculateSum(dealerDeckList);
 
 		while (sumValue < 17) {
