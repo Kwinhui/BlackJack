@@ -81,6 +81,8 @@ public class GameService {
 			cards.add(dealerCard);
 
 		}
+		
+		
 
 	}
 	// 플레이어 덱을 보여줌
@@ -104,9 +106,12 @@ public class GameService {
 		System.out.print("딜러의 카드 : ");
 		// game() method 에서 2장씩 받은 덱리스트를
 		// 한장씩 꺼내서 dealerCard 출력
+		
 		for (CardDto dealerCard : this.dealerDeckList) {
 			System.out.print(dealerCard + " ");
+			
 		}
+		
 		System.out.println();
 		System.out.println("딜러 합 : " + sumValue);
 		System.out.println("남은카드 : " + cardService.getDeck().size() + "장");

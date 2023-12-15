@@ -3,7 +3,7 @@ package com.callor.blackjack.model;
 public class CardDto {
     private String denomination;
     private String suit;
-    private String value;
+    
     
     
     
